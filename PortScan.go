@@ -106,8 +106,13 @@ func ParsePortRange(portList string) ([]int, error) {
 				fmt.Println("Error: EndPort strconv error! Please use '-h' to see usage.")
 				os.Exit(1)
 			}
-			for j := startPort; j <= endPort; j++ {
-				ports = append(ports, j)
+			if (endPort >= 65536) {
+				fmt.Println("Error: EndPort strconv error! Please use '-h' to see usage.")
+				os.Exit(1)
+			} else {
+				for j := startPort; j <= endPort; j++ {
+					ports = append(ports, j)
+				}
 			}
 		} else {
 			// 不存在'-'，直接加入ports
